@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>広告デモ</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #333; }
+        
+        /* 背景：1枚目の画像 */
+        .main-bg {
+            width: 100vw; height: 100vh;
+            background: url('image3.png.PNG') no-repeat center center; 
+            background-size: cover;
+            position: relative;
+            display: flex; 
+            justify-content: center; 
+            align-items: flex-end; /* 広告を一番下まで下げる */
+            padding-bottom: 20px; /* 画面端との隙間 */
+            gap: 15px; /* 広告間の距離を詰める */
+        }
+
+        /* 広告カード：さらにコンパクトに（幅25%、高さ38%） */
+        .ad-card {
+            width: 25%; height: 38%; 
+            background: white; border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+            position: relative; cursor: pointer;
+            display: flex; flex-direction: column; padding: 10px;
+            z-index: 10;
+        }
+
+        /* ×ボタン */
+        .close-btn {
+            position: absolute; top: 0; right: 0;
+            width: 15px; height: 15px;
+            font-size: 10px; color: #ccc;
+            background: rgba(0,0,0,0.05);
+            z-index: 100; text-align: center; line-height: 15px;
+        }
+
+        /* 広告内の画像 */
+        .ad-content { 
+            flex-grow: 1; 
+            background-color: #f8f9fa; 
+            border-radius: 6px; 
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .ad-title { font-size: 0.75rem; font-weight: bold; margin: 6px 0; color: #333; line-height: 1.2; }
+        .btn { background: #27ae60; color: white; padding: 6px; border-radius: 5px; text-align: center; font-weight: bold; font-size: 0.7rem; }
+
+        #overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); z-index: 1000;
+            display: none; justify-content: center; align-items: center;
+        }
+        #overlay img { max-width: 95%; max-height: 95%; }
+    </style>
+</head>
+<body>
+
+<div class="main-bg">
+    <div class="ad-card" onclick="openAd('Image2.png.JPG')">
+        <div class="close-btn" onclick="event.stopPropagation(); this.parentElement.style.display='none';">×</div>
+        <div class="ad-content" style="background-image: url('Image2.png.JPG');"></div>
+        <div class="ad-title">最新マーケティング<br>事例を今すぐ確認</div>
+        <div class="btn">詳細を見る</div>
+    </div>
+
+    <div class="ad-card" onclick="openAd('image1.png.JPG')">
+        <div class="close-btn" onclick="event.stopPropagation(); this.parentElement.style.display='none';">×</div>
+        <div class="ad-content" style="background-image: url('image3.png.PNG');"></div>
+        <div class="ad-title">限定公開！<br>SNS攻略のヒント</div>
+        <div class="btn" style="background:#3498db;">無料で読む</div>
+    </div>
+</div>
+
+<div id="overlay" onclick="this.style.display='none'">
+    <img id="target-img" src="">
+</div>
+
+<script>
+    function openAd(src) {
+        document.getElementById('target-img').src = src;
+        document.getElementById('overlay').style.display = 'flex';
+    }
+</script>
+
+</body>
+</html>
